@@ -1,3 +1,5 @@
 *.env
 *.json
 *.lock
+*.pdf
+__pycache__
