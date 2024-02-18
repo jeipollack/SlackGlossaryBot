@@ -1,0 +1,36 @@
+_metadata:
+  major_version: 1
+  minor_version: 1
+display_information:
+  name: GlossaryBot
+  long_description: The Slack Glossary Bot is a valuable addition to any team's Slack workspace, designed to enhance communication and productivity by providing instant access to definitions of technical terms and acronyms. With the ability to respond to slash commands, users can conveniently query the bot for the meaning of any term without leaving the Slack environment.
+  description: Instantly define technical terms and acronyms in Slack.
+  background_color: "#0000AA"
+settings:
+  socket_mode_enabled: false
+  interactivity:
+    is_enabled: true
+    request_url: https://example.com/slack/message_action
+  event_subscriptions:
+    bot_events:
+      - app_home_opened
+features:
+  app_home:
+    home_tab_enabled: true
+    messages_tab_enabled: true
+    messages_tab_read_only_enabled: false
+  bot_user:
+    display_name: GlossaryBot
+  slash_commands:
+    - command: /glossary
+      description: Enter acronym.
+      usage_hint: /glossary LSST
+      url: https://example.com/slack/slash/please
+oauth_config:
+  scopes:
+    bot:
+      - commands
+      - chat:write
+      - chat:write.public
+  redirect_urls:
+    - https://example.com/slack/auth

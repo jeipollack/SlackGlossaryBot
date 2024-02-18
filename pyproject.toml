@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "SlackGlossary"
+version = "0.1.0"
+description = "A Slack glossary app"
+authors = ["Jennifer Pollack <jpollacke@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11.3"
+aiohttp = "3.8.5"
+python-dotenv = "1.0.0"
+slack = "0.0.2"
+slack-bolt = "1.18.0"
+slack-sdk = "3.21.3"
+flask = "2.2.3"
+slackeventsapi = "3.0.1"
+tabulate = "0.9.0"
+websockets = "10.4"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+slglossary = 'SlackGlossary.app:main'
