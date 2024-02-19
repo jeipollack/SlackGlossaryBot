@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "SlackGlossary"
+name = "SlackGlossaryBot"
 version = "0.1.0"
-description = "A Slack glossary app"
+description = "A Slack glossary Bot app"
 authors = ["Jennifer Pollack <jpollacke@gmail.com>"]
 
 [tool.poetry.dependencies]
@@ -24,4 +24,4 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-slglossary = 'SlackGlossary.app:main'
+slglossary = 'SlackGlossaryBot.app:main'
