@@ -2,9 +2,9 @@
 This README provides comprehensive instructions for installing, using, and deploying SlackGlossary using Docker. Users can follow these instructions to get started with the application.
 
 
-# SlackGlossary
+# SlackGlossaryBot
 
-SlackGlossary is a Python application that retrieves definitions for acronyms from a glossary stored in JSON or CSV format. It provides a simple command-line interface to look up acronym definitions.
+SlackGlossaryBot is a Python application that retrieves definitions for acronyms from a glossary stored in JSON or CSV format. It provides a simple command-line interface to look up acronym definitions.
 
 ## Installation
 
