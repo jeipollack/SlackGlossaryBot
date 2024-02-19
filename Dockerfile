@@ -10,7 +10,7 @@ ENV LANG=C.UTF-8 \
 RUN pip install --upgrade pip
 
 # Set working directory
-WORKDIR /opt/SlackGlossary
+WORKDIR /opt/SlackGlossaryBot
 
 # Copy only the pyproject.toml and poetry.lock files
 COPY pyproject.toml poetry.lock ./
@@ -24,7 +24,7 @@ RUN pip install poetry && \
 COPY . .
 
 # Set working directory
-WORKDIR /opt/SlackGlossary
+WORKDIR /opt/SlackGlossaryBot
 
 # Default command
 CMD ["sleep", "infinity"]
