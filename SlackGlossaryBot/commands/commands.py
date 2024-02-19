@@ -8,9 +8,9 @@ def register_glossary_commands(app):
         acronym = check_output(
             [
                 "python3",
-                "/opt/SlackGlossary/SlackGlossary/glossary/glossary.py",
+                "/opt/SlackGlossaryBot/SlackGlossaryBot/glossary/glossary.py",
                 "-g",
-                "/opt/SlackGlossary/SlackGlossary/glossary/glossary.json",
+                "/opt/SlackGlossaryBot/SlackGlossaryBot/glossary/glossary.json",
                 f"{command['text']}",
             ]
         )
