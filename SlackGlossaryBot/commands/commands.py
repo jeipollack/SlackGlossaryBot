@@ -10,7 +10,7 @@ def register_glossary_commands(app):
                 "python3",
                 "/opt/SlackGlossary/SlackGlossary/glossary/glossary.py",
                 "-g",
-                "/opt/SlackGlossary/SlackGlossary/glossary/EUCL-IAP-LI-1-001-v4.05_Acronyms-6-45_esa.json",
+                "/opt/SlackGlossary/SlackGlossary/glossary/glossary.json",
                 f"{command['text']}",
             ]
         )
