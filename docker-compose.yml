@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  bot-app:
+  bot-app-csv:
     build:
       context: ./
     restart: always
@@ -9,3 +9,6 @@ services:
 
     env_file:
       - ./bot.env
+
+    volumes:
+      - ./config:/opt/SlackGlossaryBot/config
