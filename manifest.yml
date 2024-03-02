@@ -1,5 +1,8 @@
 display_information:
   name: GlossaryBot
+  description: Instantly define technical terms and acronyms in Slack.
+  background_color: "#314fa8"
+  long_description: Developed originally for the Euclid Consortium Slack, the Slack Glossary Bot is a valuable addition to any team's Slack workspace, designed to enhance communication and productivity by providing instant access to definitions of technical terms and acronyms. With the ability to respond to slash commands, users can conveniently query the bot for the meaning of any term without leaving the Slack environment.
 features:
   bot_user:
     display_name: GlossaryBot
