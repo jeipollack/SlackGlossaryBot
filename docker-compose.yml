@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  bot-app-csv:
+  bot-app:
     build:
       context: ./
     restart: always
