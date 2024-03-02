@@ -61,7 +61,22 @@ def get_pdf_page_count(filename):
         return len(reader.pages)
 
 
-def create_glossary(filename):
+def create_glossary(args):
+    """Create Glossary.
+
+    Parameters
+    ----------
+    args
+    """
+    if args.file_type == "pdf":
+        create_glossary_from_pdf(args.filename)
+    elif args.file_type == "csv":
+        create_glossary_from_csv(args.filename)
+    else:
+        raise ValueError("Unsupported file type:", args.filename)
+
+
+def create_glossary_from_pdf(filename):
     """Create Glossary.
 
     A function to create a Glossary.
@@ -89,9 +104,38 @@ def create_glossary(filename):
         json.dump(glossary, outfile)
 
 
+def create_glossary_from_csv(filename):
+    """Create Glossary From CSV.
+
+    A function to create a Glossary.
+
+    Parameters
+    ----------
+    filename: str
+        Name of CSV file
+    """
+
+    npages = get_pdf_page_count(filename)
+    glossary = {}
+    for i in range(1, npages + 1):
+        acronym_series, definition_series = scrape_acronym_pdf(filename, i)
+        for acronym, definition in zip(acronym_series, definition_series):
+            if acronym in glossary:
+                glossary[acronym] = glossary[acronym] + " | " + definition
+            else:
+                glossary[acronym] = definition
+
+    pre, ext = os.path.splitext(filename)
+
+    glossary_json = pre + ".json"
+    with open(glossary_json, "w") as outfile:
+        json.dump(glossary, outfile)
+
+
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Create glossary from PDF.")
+    parser = argparse.ArgumentParser(description="Create glossary.")
     parser.add_argument("filename", help="Name of the PDF file")
+    parser.add_argument("file-type", help="File type: pdf or csv")
     args = parser.parse_args()
 
-    create_glossary(args.filename)
+    create_glossary(args)
