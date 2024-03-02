@@ -12,16 +12,17 @@ RUN pip install --upgrade pip
 # Set working directory
 WORKDIR /opt/SlackGlossaryBot
 
-# Copy only the pyproject.toml and poetry.lock files
-COPY pyproject.toml poetry.lock ./
+# Copy the source code
+COPY . .
+
+# List the contents of the directory
+RUN ls -l
 
 # Install project dependencies
 RUN pip install poetry && \
     poetry config virtualenvs.create false && \
     poetry install --no-dev
 
-# Copy the source code
-COPY . .
 
 # Set working directory
 WORKDIR /opt/SlackGlossaryBot
