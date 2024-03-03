@@ -79,6 +79,63 @@ language: spanish
 * The preprocessing flag (preprocess) should be set to True for JSON files to indicate that the glossary data has been preprocessed. This flag is not applicable for CSV files.
 * Ensure that the preprocessing flag is adjusted accordingly based on the file type being used (JSON or CSV).
 
+## File Formats
+
+SlackGlossaryBot supports two file formats for providing glossary data: CSV and JSON. The structure of the glossary data varies slightly between these two formats, as outlined below:
+
+**CSV Format**
+
+Glossary data in CSV format should be organized with two columns: "Term" and "Description". Each row represents a unique entry in the glossary, with the term and its corresponding description listed in separate columns.
+
+Example:
+```
+Term,Description
+NASA,National Aeronautics and Space Administration
+NASA,North American Saxophone Alliance
+UNESCO,United Nations Educational, Scientific and Cultural Organization
+...
+```
+
+**JSON Format**
+
+In the JSON format, glossary entries can be represented in different ways depending on whether duplicates are aggregated or not.
+For unique entries for each acronym, each object in the JSON array should contain the keys "Term" and "Description", representing a single entry in the glossary.
+If the JSON file is preprocessed (i.e., `preprocess: True`), the format is simplified. The keys represent the acronyms, and the values can be either strings or lists, where multiple descriptions are aggregated into lists for duplicate acronyms.
+
+Example (Unique Entries):
+
+```
+[
+    {
+        "Term": "NASA",
+        "Description": "National Aeronautics and Space Administration"
+    },
+    {
+        "Term": "NASA",
+        "Description": "North American Saxophone Alliance"
+    },
+    {
+        "Term": "UNESCO",
+        "Description": "United Nations Educational, Scientific and Cultural Organization"
+    },
+    ...
+]
+```
+
+Example (Preprocessed JSON):
+```
+{
+  "NASA": ["National Aeronautics and Space Administration", "North American Saxophone Alliance"],
+  "UNESCO": "United Nations Educational, Scientific and Cultural Organization",
+  "WHO": ["World Health Organization", "World Handball Organization"],
+  "FIFA": "Fédération Internationale de Football Association",
+  "NATO": "North Atlantic Treaty Organization",
+  "UNICEF": "United Nations International Children's Emergency Fund",
+  "NATO": "North Atlantic Treaty Organization",
+  "WHO": "World Health Organization"
+}
+```
+
 ## Command-line Usage
 
 **Command-line Options**
