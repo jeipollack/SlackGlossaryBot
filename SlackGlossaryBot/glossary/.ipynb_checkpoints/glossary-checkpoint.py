@@ -40,6 +40,9 @@ import yaml
 import pandas as pd
 import json
 
+language_phrases = {"english":{"acronym_not_found":"Acronym Unknown (AU)", "helper": "\nDid you mean:"}, 
+                   "spanish":{"acronym_not_found": "Acrónimo Desconocido (AD)", "helper":"\n¿Querías decir:?"
+                             }}
 
 def get_similarity(a, b):
     """
@@ -110,34 +113,9 @@ def load_config(file_path):
         raise ValueError("Invalid YAML format in config file.")
 
 
-def preprocess_glossary(glossary_data):
-    """
-    Preprocess the glossary data by concatenating duplicate definitions.
-
-    Parameters
-    ----------
-    glossary_data: list of dict
-        List containing glossary data with possible duplicate acronyms.
-
-    Returns
-    -------
-    dict
-        Preprocessed glossary with concatenated definitions.
-    """
-    glossary = {}
-    for item in glossary_data:
-        acronym = item["Term"].lower()
-        definition = item["Description"]
-        if acronym in glossary:
-            glossary[acronym].append(definition)
-        else:
-            glossary[acronym] = [definition]
-    return glossary
-
-
 def load_glossary(config):
     """
-    Load glossary from file (JSON or CSVV).
+    Load glossary from a JSON file.
 
     Parameters
     ----------
@@ -159,33 +137,21 @@ def load_glossary(config):
 
     # Load glossary based on the file type
     if glossary_type.lower() == "json":
-        preprocess = config.get("preprocess", False)
         with open(glossary_file, "r") as f:
-            glossary_data = json.load(f)
-            if preprocess:
-                glossary = glossary_data
-            else:
-                glossary = preprocess_glossary(glossary_data)
-
+            glossary = json.load(f)
     elif glossary_type.lower() == "csv":
         # Load glossary from CSV file
         glossary_df = pd.read_csv(glossary_file)
-        # Convert the 'Term' column to lowercase
-        glossary_df["Term"] = glossary_df["Term"].str.upper()
         # Group the DataFrame by 'Term' (acronym) and aggregate the descriptions into a list
         glossary_grouped = glossary_df.groupby("Term")["Description"].agg(list)
         # Convert the grouped DataFrame to a dictionary
         glossary = glossary_grouped.to_dict()
-
     else:
         raise ValueError("Unsupported file type:", glossary_type)
     return glossary
 
 
-def to_camel_case(entry):
-    return " ".join(x.capitalize() for x in entry.split())
-
-def retrieve_definitions(args, glossary, language_phrases="english", similarity=0.8):
+def retrieve_definitions(args, glossary, language_phrases, similarity=1):
     """
     Retrieve definitions for acronyms from the glossary.
 
@@ -195,21 +161,17 @@ def retrieve_definitions(args, glossary, language_phrases="english", similarity=
         Parsed command-line arguments.
     glossary: dict
         Dictionary containing acronyms and their definitions.
-    language_phrases: dict
-        Dictionary containing language phrases in the Bot response.
-    similarity: int
-        Similarity ratio between the two strings.
 
     Returns
     -------
     str
         Definition of the queried acronym.
     """
-    lowercase_glossary = {k.lower(): v for k, v in glossary.items()}
+    nglossary = {k.lower(): v for k, v in glossary.items()}
     acronyms = args.acronym or sorted(glossary.keys())
 
     for acronym in acronyms:
-        definition = lowercase_glossary.get(
+        definition = nglossary.get(
             acronym.lower(), [language_phrases["acronym_not_found"]]
         )
 
@@ -220,16 +182,8 @@ def retrieve_definitions(args, glossary, language_phrases="english", similarity=
                 if get_similarity(key.lower(), acronym.lower()) > 0.7
             ]
 
-            formatted_similars = [
-                to_camel_case(entry) if len(entry.split()) > 1 else entry
-                for entry in similars
-            ]
-
             if similars:
-                print(language_phrases["helper"], " ".join(formatted_similars), "?\n")
-
-        if isinstance(definition, str):  # Convert single string to list
-            definition = [definition]
+                print(language_phrases["helper"], " ".join(similars), "?\n")
 
     return " | ".join(definition)
 
@@ -241,29 +195,10 @@ def main():
     args = parse_arguments()
     config = load_config(args.config_file)
     # Select language-specific phrases based on configuration
-    language = config.get(
-        "language", "english"
-    )  # Default to English if language is not specified
-    language_phrases = {
-        "english": {
-            "acronym_not_found": "Acronym Unknown (AU)",
-            "helper": "\nDid you mean:",
-        },
-        "spanish": {
-            "acronym_not_found": "Acrónimo Desconocido (AD)",
-            "helper": "\n¿Querías decir:",
-        },
-    }.get(
-        language,
-        {
-            "acronym_not_found": "Acronym Unknown (AU)",
-            "helper": "\nDid you mean:",
-        },
-    )
+    language = config.get("language", "english")  # Default to English if language is not specified
+    language_phrases = language_phrases.get(language, language_phrases["english"])
     glossary = load_glossary(config)
-    definition = retrieve_definitions(
-        args, glossary, language_phrases, config["similarity"]
-    )
+    definition = retrieve_definitions(args, glossary, config["similarity"])
     print(definition)
     return definition
 
