@@ -12,10 +12,6 @@ features:
       description: Launches the GlossaryBot
       usage_hint: acronym or terms
       should_escape: false
-    - command: /glosario
-      description: Lanza el bot del glosario
-      usage_hint: acrónimo o términos
-      should_escape: false
 oauth_config:
   scopes:
     bot:
