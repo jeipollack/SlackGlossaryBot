@@ -138,6 +138,8 @@ Example (Preprocessed JSON):
 
 ## Command-line Usage
 
+You can test the glossary look up at the command-line before deployment.
+
 **Command-line Options**
 * **acronym**: The acronym(s) to look up.
 * **-c,--config_file CONFIG_FILE**: Path to the YAML configuration file specifying the glossary file path and format.
