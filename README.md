@@ -3,7 +3,7 @@ This README provides comprehensive instructions for installing, using, and deplo
 
 # SlackGlossaryBot
 
-SlackGlossaryBot is a Python application that retrieves definitions for acronyms from a glossary stored in JSON or CSV format. It provides a simple command-line interface to look up acronym definitions.
+The Slack Glossary Bot is a helpful tool designed to provide quick access to acronym definitions within your Slack workspace. Integrated seamlessly into your Slack environment, this bot responds to the `/glossary <acronym or terms>` command, allowing users to instantly retrieve the meaning of any acronym without leaving their conversation.
 
 ## Installation
 
