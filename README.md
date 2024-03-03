@@ -140,8 +140,7 @@ Example (Preprocessed JSON):
 
 **Command-line Options**
 * **acronym**: The acronym(s) to look up.
-* **--config CONFIG_FILE**: Path to the YAML configuration file specifying the glossary file path and format.
-* **--similarity SIMILARITY**: Print similar acronyms, given a match fraction (0.0-1.0).
+* **-c,--config_file CONFIG_FILE**: Path to the YAML configuration file specifying the glossary file path and format.
 
 *Example usage*:
 ```
