@@ -1,4 +1,5 @@
-file_name: EUCL-IAP-LI-1-001-v4.05_Acronyms-6-45_esa.json
+path: SlackGlossaryBot/glossary/EUCL-IAP-LI-1-001-v4.05_Acronyms-6-45_esa.json
 file_type: json
 # Print similar keywords, given a match fraction.
 similarity: 0.8
+preprocess: True

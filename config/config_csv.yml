@@ -1,6 +1,6 @@
 language: english
   # /opt/SlackGlossaryBot/
-path: /opt/SlackGlossaryBot/SlackGlossaryBot/glossary/glossarydefs.csv
+path: SlackGlossaryBot/glossary/glossarydefs.csv
 file_type: csv
 # Print similar keywords, given a match fraction.
 similarity: 0.8
