@@ -9,3 +9,6 @@ services:
 
     env_file:
       - ./bot.env
+
+    volumes:
+      - ./config:/opt/SlackGlossaryBot/config
