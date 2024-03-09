@@ -110,6 +110,30 @@ def load_config(file_path):
         raise ValueError("Invalid YAML format in config file.")
 
 
+def read_json_header(glossary_data):
+    """Read JSON Header.
+
+    Read the header of a JSON file.
+
+    Paramters
+    ---------
+    glossary_data: list
+        List of dictionaries representing data from a JSON file.
+
+    Returns
+    -------
+    headers: list
+        List of strings representing the header keys.
+    """
+
+    if glossary_data:  # Check if the JSON file is not empty
+        first_row = glossary_data[0]
+        headers = list(first_row.keys())
+    else:
+        headers = []  # If the JSON file is empty or has no data
+    return headers
+
+
 def preprocess_glossary(glossary_data):
     """
     Preprocess the glossary data by concatenating duplicate definitions.
@@ -125,9 +149,10 @@ def preprocess_glossary(glossary_data):
         Preprocessed glossary with concatenated definitions.
     """
     glossary = {}
+    header = read_json_header(glossary_data)
     for item in glossary_data:
-        acronym = item["Term"].lower()
-        definition = item["Description"]
+        acronym = item[header[0]].lower()
+        definition = item[header[1]]
         if acronym in glossary:
             glossary[acronym].append(definition)
         else:
@@ -183,6 +208,7 @@ def load_glossary(config):
 
 def to_camel_case(entry):
     return " ".join(x.capitalize() for x in entry.split())
+
 
 def retrieve_definitions(args, glossary, language_phrases="english", similarity=0.8):
     """
