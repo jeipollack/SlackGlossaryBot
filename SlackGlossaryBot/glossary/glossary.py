@@ -170,10 +170,9 @@ def load_glossary(config):
     elif glossary_type.lower() == "csv":
         # Load glossary from CSV file
         glossary_df = pd.read_csv(glossary_file)
-        # Convert the 'Term' column to lowercase
-        glossary_df["Term"] = glossary_df["Term"].str.upper()
-        # Group the DataFrame by 'Term' (acronym) and aggregate the descriptions into a list
-        glossary_grouped = glossary_df.groupby("Term")["Description"].agg(list)
+        headers = glossary_df.columns.tolist()
+        # Group the DataFrame by 'header[0]' (acronym) and aggregate the descriptions 'header[1]' into a list
+        glossary_grouped = glossary_df.groupby(headers[0])[headers[1]].agg(list)
         # Convert the grouped DataFrame to a dictionary
         glossary = glossary_grouped.to_dict()
 
