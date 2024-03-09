@@ -85,7 +85,7 @@ SlackGlossaryBot supports two file formats for providing glossary data: CSV and 
 
 **CSV Format**
 
-Glossary data in CSV format should be organized with two columns: "Term" and "Description". Each row represents a unique entry in the glossary, with the term and its corresponding description listed in separate columns.
+Glossary data in CSV format should be organized with two columns.  The first column should contain the acronyms or terms and the second column should contain the definition. Each row represents a unique entry in the glossary, with the term and its corresponding description listed in separate columns.
 
 Example:
 ```
@@ -99,8 +99,8 @@ UNESCO,United Nations Educational, Scientific and Cultural Organization
 **JSON Format**
 
 In the JSON format, glossary entries can be represented in different ways depending on whether duplicates are aggregated or not.
-For unique entries for each acronym, each object in the JSON array should contain the keys "Term" and "Description", representing a single entry in the glossary.
-If the JSON file is preprocessed (i.e., `preprocess: True`), the format is simplified. The keys represent the acronyms, and the values can be either strings or lists, where multiple descriptions are aggregated into lists for duplicate acronyms.
+
+In the standard representation, each glossary entry is encapsulated within an object in the JSON array. Each object contains keys representing the term and its corresponding definition or description. For example:
 
 Example (Unique Entries):
 
@@ -122,6 +122,8 @@ Example (Unique Entries):
 ]
 ```
 
+If the JSON file is preprocessed (i.e., `preprocess: True`), the format is simplified. The keys represent the acronyms, and the values can be either strings or lists, where multiple descriptions are aggregated into lists for duplicate acronyms.
+
 Example (Preprocessed JSON):
 ```
 {
@@ -135,6 +137,7 @@ Example (Preprocessed JSON):
   "WHO": "World Health Organization"
 }
 ```
+Here, the key-value pairs directly reflect the terms and their definitions, allowing for a more streamlined representation of the glossary entries.
 
 ## Running the App
 
