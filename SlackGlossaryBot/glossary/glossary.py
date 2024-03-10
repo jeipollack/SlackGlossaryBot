@@ -196,6 +196,8 @@ def load_glossary(config):
         # Load glossary from CSV file
         glossary_df = pd.read_csv(glossary_file)
         headers = glossary_df.columns.tolist()
+        # Convert all acronyms to lowercase to ensure consistent grouping
+        glossary_df[headers[0]] = glossary_df[headers[0]].str.lower()
         # Group the DataFrame by 'header[0]' (acronym) and aggregate the descriptions 'header[1]' into a list
         glossary_grouped = glossary_df.groupby(headers[0])[headers[1]].agg(list)
         # Convert the grouped DataFrame to a dictionary
@@ -246,7 +248,7 @@ def retrieve_definitions(args, glossary, language_phrases="english", similarity=
             ]
 
             formatted_similars = [
-                to_camel_case(entry) if len(entry.split()) > 1 else entry
+                to_camel_case(entry) if len(entry.split()) > 1 else entry.upper()
                 for entry in similars
             ]
 
