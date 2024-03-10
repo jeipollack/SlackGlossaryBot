@@ -197,7 +197,7 @@ def load_glossary(config):
         glossary_df = pd.read_csv(glossary_file)
         headers = glossary_df.columns.tolist()
         # Convert all acronyms to lowercase to ensure consistent grouping
-        glossary_df[headers[0]] = glossary_df[headers[0]].str.lower()
+        glossary_df[headers[0]] = glossary_df[headers[0]].str.lower().str.strip()
         # Group the DataFrame by 'header[0]' (acronym) and aggregate the descriptions 'header[1]' into a list
         glossary_grouped = glossary_df.groupby(headers[0])[headers[1]].agg(list)
         # Convert the grouped DataFrame to a dictionary
