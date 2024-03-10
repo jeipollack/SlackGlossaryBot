@@ -1,5 +1,7 @@
 language: spanish
-path: /Users/jenniferpollack/Projects/lsst-texmf/etc/glossarydefs_es.csv
+path: /opt/SlackGlossaryBot/SlackGlossaryBot/glossary/glossarydefs_es.csv
 file_type: csv
 # Print similar keywords, given a match fraction.
 similarity: 0.8
+# Flag 
+preprocess: False
