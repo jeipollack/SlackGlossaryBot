@@ -2,4 +2,5 @@
 *.json
 *.lock
 *.pdf
+*.ipynb
 __pycache__
